@@ -6,6 +6,11 @@ import java.util.Map;
 import java.util.Set;
 
 import ar.edu.unlam.pb2.eva03.enumeradores.TipoDeEvento;
+import ar.edu.unlam.pb2.eva03.exceptions.NoEstaPreparado;
+import ar.edu.unlam.pb2.eva03.interfaces.ICiclista;
+import ar.edu.unlam.pb2.eva03.interfaces.ICorredor;
+import ar.edu.unlam.pb2.eva03.interfaces.INadador;
+import ar.edu.unlam.pb2.eva03.models.Ciclista;
 import ar.edu.unlam.pb2.eva03.models.Corredor;
 
 public class Club {
@@ -53,9 +58,54 @@ public class Club {
 		competencias.put(nombreDelEvento, nuevoEvento);
 	}
 
-	public Object inscribirEnEvento(String nombreDelEvento, Deportista celeste) {
-		//inscribir evento en competencias
-		return null;
+	public Integer inscribirEnEvento(String nombreDelEvento, Deportista deportista) throws NoEstaPreparado{
+		//que si el deportista no esta preparado no se pueda anotar al evento
+		//busco el nombreDelEvento dentro de las competencias
+		if(competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.CARRERA_10K) || 
+				competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.CARRERA_21K)||
+				competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.CARRERA_42K)||
+				competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.CARRERA_5K)) {
+			if(deportista instanceof ICorredor) {
+				competencias.get(nombreDelEvento).aniadirParticipante(competencias.get(nombreDelEvento).getNumeroDeInscripcion(), deportista);
+				return 1;
+			}else {
+				throw new NoEstaPreparado();
+			}
+		}
+		
+		if(competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.CARRERA_NATACION_EN_AGUAS_ABIERTAS) ||
+				competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.CARRERA_NATACION_EN_PICINA)) {
+			if(deportista instanceof INadador) {
+				competencias.get(nombreDelEvento).aniadirParticipante(competencias.get(nombreDelEvento).getNumeroDeInscripcion(), deportista);
+				return 1;
+			}else {
+				throw new NoEstaPreparado();
+			}
+		}
+		
+		if(competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.DUATLON)){
+			if(deportista instanceof ICiclista && deportista instanceof ICorredor) {
+				competencias.get(nombreDelEvento).aniadirParticipante(competencias.get(nombreDelEvento).getNumeroDeInscripcion(), deportista);
+				return 1;
+			}else {
+				throw new NoEstaPreparado();
+			}
+		}
+		
+		
+		if(	competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.TRIATLON_IRONMAN) ||
+			competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.TRIATLON_MEDIO) ||
+			competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.TRIATLON_OLIMPICO) || 
+			competencias.get(nombreDelEvento).getTipo().equals(TipoDeEvento.TRIATLON_SHORT) ){
+				if(deportista instanceof ICiclista && deportista instanceof ICorredor && deportista instanceof INadador) {
+					competencias.get(nombreDelEvento).aniadirParticipante(competencias.get(nombreDelEvento).getNumeroDeInscripcion(), deportista);
+					return 1;
+				}else {
+					throw new NoEstaPreparado();
+				}
+		}
+		return 0;
+		 
 	}
 
 	//crear metodo crearCompetencia(){} y eliminarCompetencia(){}

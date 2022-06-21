@@ -15,7 +15,7 @@ public class Evento {
 	
 	public Evento(TipoDeEvento tipoDeEvento) {
 		tipo= tipoDeEvento;
-		numeroDeInscripcion=0;
+		numeroDeInscripcion=1;
 		participantes = new HashMap<Integer, Deportista>();
 	}
 	
@@ -25,6 +25,14 @@ public class Evento {
 	}
 	public Deportista getParticipante(Integer numeroDeInscripcion) {
 		return participantes.get(numeroDeInscripcion);
+	}
+
+	public Integer getNumeroDeInscripcion() {
+		return numeroDeInscripcion;
+	}
+
+	public TipoDeEvento getTipo() {
+		return tipo;
 	}
 	
 }

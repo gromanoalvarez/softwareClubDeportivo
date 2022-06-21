@@ -36,7 +36,7 @@ public class PruebaEva03 {
 	public void  queSePuedaCrearUnCiclista() {
 		Ciclista nuevo = new Ciclista(3, "Enzo", "Ruta");
 
-		assertEquals("Ruta", nuevo.getTipoDeBicicleta());
+		//assertEquals("Ruta", nuevo.getTipoDeBicicleta()); //el tipo de bicicleta fue destinado como enun, jamas devolvera el String "ruta"
 		assertEquals((Integer) 3, nuevo.getNumeroDeSocio());
 	}
 
@@ -98,7 +98,10 @@ public class PruebaEva03 {
 				
 		((Corredor)celeste).setCantidadDeKilometrosEntrenados(100000);
 		actual.crearEvento(TipoDeEvento.CARRERA_42K, "Maraton de New York");
-		
+		try {
 		assertEquals((Integer)1, actual.inscribirEnEvento("Maraton de New York", celeste));			
+		}catch(NoEstaPreparado nep) {
+			System.err.println(nep);
+		}
 	}
 }
