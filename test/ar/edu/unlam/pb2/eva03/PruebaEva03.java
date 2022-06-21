@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import ar.edu.unlam.pb2.eva03.enumeradores.TipoDeBicicleta;
 import ar.edu.unlam.pb2.eva03.enumeradores.TipoDeEvento;
+import ar.edu.unlam.pb2.eva03.exceptions.NoEstaPreparado;
 import ar.edu.unlam.pb2.eva03.models.Ciclista;
 import ar.edu.unlam.pb2.eva03.models.Corredor;
 import ar.edu.unlam.pb2.eva03.models.Nadador;

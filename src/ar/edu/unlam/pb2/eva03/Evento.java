@@ -13,4 +13,18 @@ public class Evento {
 	private Integer numeroDeInscripcion;
 	private Map<Integer, Deportista> participantes;
 	
+	public Evento(TipoDeEvento tipoDeEvento) {
+		tipo= tipoDeEvento;
+		numeroDeInscripcion=0;
+		participantes = new HashMap<Integer, Deportista>();
+	}
+	
+	public void aniadirParticipante(Integer numeroDeInscripcion, Deportista participante) {
+		this.numeroDeInscripcion=numeroDeInscripcion;
+		participantes.put(numeroDeInscripcion, participante);
+	}
+	public Deportista getParticipante(Integer numeroDeInscripcion) {
+		return participantes.get(numeroDeInscripcion);
+	}
+	
 }
